@@ -1,0 +1,2 @@
+/etc/restic
+/etc/systemd/system/restic.*

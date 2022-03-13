@@ -1,0 +1,18 @@
+[Unit]
+Description=Restic backup
+After=syslog.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=restic
+ExecStart=/bin/bash /etc/restic/run.sh
+EnvironmentFile=/etc/restic/restic.env
+# выполняем restic с capability DAC_READ_SEARCH, дающей право
+# обходить права доступа ФС в Linux, это нужно для бэкапа
+# директорий, которые могут читать только другие пользователи
+# или суперпользователь
+AmbientCapabilities=CAP_DAC_READ_SEARCH
+
+[Install]
+WantedBy=multi-user.target
